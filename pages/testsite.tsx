@@ -17,11 +17,7 @@ const Testsite = ({ post, setPost }: property) => {
           <article className="basic-container">
             <div className="top-section">
               <div className="img-wrapper">
-                <Image
-                  className="static-image"
-                  alt=""
-                  src="http://acs.amazonaws.com/groups/global/AllUsers"
-                ></Image>
+                <Image className="static-image" alt="" src=""></Image>
               </div>
             </div>
             <div className="headline-section">

@@ -22,8 +22,6 @@ export default function Home({ post, setPost }: property) {
     setLink("");
   };
 
-  console.log(post);
-
   return (
     <>
       <Head>

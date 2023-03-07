@@ -3,6 +3,7 @@ nav ul {
   gap: 1rem;
   font-size: 1.5rem;
   list-style: none;
+  margin-bottom: 5rem;
 }
 
 nav ul li a {
@@ -100,6 +101,143 @@ select {
   cursor: not-allowed;
   background: rgba(0, 0, 0, 0.08);
   color: rgba(0, 0, 0, 0.3);
+}
+
+/**--Dialog---**/
+
+.input-container,
+.default-box {
+  min-height: 100px;
+  background-color: #f9f9ff;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.default-box:hover {
+  border-radius: 20px;
+  background-color: #ececfa;
+}
+
+.input-container:hover .default-box svg {
+  color: #8989a7;
+}
+
+.default-box {
+  display: flex;
+  flex-grow: 1;
+  padding-left: 1.5rem;
+  align-items: center;
+}
+
+.default-box svg {
+  width: 30px;
+  height: 30px;
+  color: #c6c6e4;
+}
+
+.first-dialog {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background-color: #ececfa;
+  border-radius: 20px;
+}
+
+.first-dialog button {
+  flex: 0 0 calc(50% - 0.75rem);
+  padding: 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.dialog h2 {
+  font-size: 1.2rem;
+}
+
+.dialog .checkbox {
+  width: 20px;
+  height: 20px;
+}
+
+.dialog input,
+.dialog textarea,
+.dialog select {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  max-width: 100%;
+}
+
+.button-box {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.dialog {
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.checkbox-container {
+  display: flex;
+  gap: 3rem;
+}
+
+.checkbox-container h2 {
+  font-size: 1rem;
+}
+
+.parent-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.parent-list h4 {
+  background-color: #dcdcf1;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.parent-list h4:hover {
+  background-color: #bcbcdf;
+}
+
+.add-link {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.add-link span {
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.links-container {
+  padding: 1rem;
+  margin: 0;
+  text-align: left;
+}
+
+.links-container li {
+  padding: 0.4rem;
+}
+
+.simple-link {
+  font-size: 1.125rem;
 }
 
 /**From main project**/
@@ -855,13 +993,13 @@ a:hover {
 .detailview .left-container .basic-container .headline-section .title-big {
   margin-bottom: 1rem;
 }
-.detailview .left-container .basic-container .table-of-contents {
+.table-of-contents {
   border-radius: var(--radius-16);
   padding: 2rem;
   background-color: var(--background-color);
   border: 1px solid rgba(132, 132, 133, 0.025);
 }
-.detailview .left-container .basic-container .table-of-contents h3 {
+.table-of-contents h3 {
   margin: 0;
   letter-spacing: 1px;
   color: var(--text-color-dark);
@@ -869,48 +1007,30 @@ a:hover {
   padding-bottom: 0.75rem;
   border-bottom: 1.25px solid var(--border-color);
 }
-.detailview .left-container .basic-container .table-of-contents ol {
-  counter-reset: section;
+.table-of-contents ol {
   list-style-type: none;
 }
-.detailview .left-container .basic-container .table-of-contents li::before {
-  counter-increment: section;
-  content: counters(section, ".") ". ";
-}
-.detailview .left-container .basic-container .table-of-contents .list {
+
+.table-of-contents .list {
   margin: 1rem 0 -0.65rem 0;
   padding-left: 0rem;
   color: var(--text-color-dark);
   font-size: var(--font-2);
 }
-.detailview .left-container .basic-container .table-of-contents .list a:hover {
+.table-of-contents .list a:hover {
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
 }
-.detailview
-  .left-container
-  .basic-container
-  .table-of-contents
-  .list
-  .item-simple {
+
+.table-of-contents .list .item-simple {
   padding-bottom: 0.65rem;
 }
-.detailview
-  .left-container
-  .basic-container
-  .table-of-contents
-  .list
-  .item-nested
-  li {
+
+.table-of-contents .list .item-nested li {
   padding-bottom: 0.65rem;
 }
-.detailview
-  .left-container
-  .basic-container
-  .table-of-contents
-  .list
-  .item-nested
-  li:first-child {
+
+.table-of-contents .list .item-nested li:first-child {
   padding-top: 0.65rem;
 }
 .detailview .left-container .basic-container .text-section {

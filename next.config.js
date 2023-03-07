@@ -1,6 +1,11 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
+require("dotenv").config({ path: "api-credentials.env" });
 
-module.exports = nextConfig
+module.exports = {
+  env: {
+    URI: process.env.URI,
+    NAME: process.env.NAME,
+    PASSWORD: process.env.PASSWORD,
+    API_KEY: process.env.API_KEY,
+  },
+  reactStrictMode: true,
+};
