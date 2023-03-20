@@ -18,7 +18,6 @@ Amplify.configure({
   aws_appsync_authenticationType: "API_KEY", // (optional) - Primary AWS AppSync authentication type
   aws_appsync_apiKey: process.env.API_KEY, // (optional) - AWS AppSync API Key
 });
-// Auth.configure(awsconfig);
 
 export default function App({ Component, pageProps }: AppProps) {
   const [post, setPost] = useState([]);
