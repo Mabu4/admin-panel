@@ -240,6 +240,15 @@ select {
   font-size: 1.125rem;
 }
 
+.inline-link {
+  color: var(--theme-color);
+  text-decoration: none !important;
+}
+
+.inline-link:hover {
+  color: #82cf5d;
+}
+
 /**From main project**/
 
 :root {

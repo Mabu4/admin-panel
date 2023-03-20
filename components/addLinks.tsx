@@ -1,18 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const AddLinks = ({
-  resetLink,
-  setLink,
   setInput,
-  link,
   input,
-  saveLink,
-  setSaveLink,
-  setShowLinkDialog,
-  showLinkDialog,
   dialogSequence,
   position,
+  reset,
+  setReset,
+  numberOfListelements,
 }: any) => {
+  const [saveLink, setSaveLink] = useState<boolean>(false);
+  const [link, setLink] = useState<any>({ value: "", link: "" });
+  const [showLinkDialog, setShowLinkDialog] = useState<boolean>(false);
+
   const handleLinkChange = (e: any, type: string) => {
     if (type === "value") {
       setLink((prev: any) => {
@@ -26,9 +26,21 @@ const AddLinks = ({
     }
   };
 
+  const resetLink = () => {
+    setLink({ value: "", link: "" });
+    setShowLinkDialog(false);
+    setSaveLink(false);
+    setReset(false);
+  };
+
+  useEffect(() => {
+    if (reset === true) {
+      resetLink();
+    }
+  }, [reset]);
+
   useEffect(() => {
     if (!!link.value && link.value !== "") {
-      console.log("rein da");
       setInput((prev: any) => {
         const links = input.links;
         const newLink = `Link-${input.links.length + 1}`;
@@ -36,14 +48,15 @@ const AddLinks = ({
           dialogSequence === "list-ul-second" ||
           dialogSequence === "list-ol-second"
         ) {
-          const newListElement = `${prev.list.listelemente[position]}${newLink}}`;
-          prev.list.listelemente[position] = newListElement;
+          let newList = prev.list.listelemente;
+          const newListElement = `${prev.list.listelemente[position]}${newLink}`;
+          newList[position] = newListElement;
           return {
             ...prev,
             list: {
               type: prev.list.type,
               keyLearning: prev.list.keyLearning,
-              listelemente: prev.list.listelemente,
+              listelemente: newList,
               sublists: prev.list.keyLearning,
             },
             links: [
@@ -89,24 +102,38 @@ const AddLinks = ({
             value={link.link}
             onChange={(e) => handleLinkChange(e, "link")}
           />
-          <button
-            onClick={() => {
-              setSaveLink(true), console.log("klick", saveLink);
-            }}
-            className="button-18"
-          >
+          <button onClick={() => setSaveLink(true)} className="button-18">
             Speichern
           </button>
         </>
       )}
-      <h2>Gespeicherte Links</h2>
-      <ol className="links-container">
-        {input.links.map((link: any) => (
-          <li className="simple-link" key={link.id}>
-            {link.id}: {link.value} ({link.link})
-          </li>
-        ))}
-      </ol>
+      {(dialogSequence === "list-ul-second" ||
+        dialogSequence === "list-ol-second") &&
+        numberOfListelements.length - 1 === position &&
+        input.links.length > 0 && (
+          <>
+            <h2>Gespeicherte Links</h2>
+            <ol className="links-container">
+              {input.links.map((link: any) => (
+                <li className="simple-link" key={link.id}>
+                  {link.id}: {link.value} ({link.link})
+                </li>
+              ))}
+            </ol>
+          </>
+        )}
+      {dialogSequence === "text" && (
+        <>
+          <h2>Gespeicherte Links</h2>
+          <ol className="links-container">
+            {input.links.map((link: any) => (
+              <li className="simple-link" key={link.id}>
+                {link.id}: {link.value} ({link.link})
+              </li>
+            ))}
+          </ol>
+        </>
+      )}
     </>
   );
 };

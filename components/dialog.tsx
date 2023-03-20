@@ -25,9 +25,8 @@ const Dialog = ({
   numberOfListelements,
   contentHTML,
 }: props) => {
-  const [showLinkDialog, setShowLinkDialog] = useState<boolean>(false);
-  const [link, setLink] = useState<any>({ value: "", link: "" });
-  const [saveLink, setSaveLink] = useState<boolean>(false);
+  const [reset, setReset] = useState<boolean>(false);
+
   const dialogThemes = [
     { name: "Überschrift (top)", key: "headline" },
     { name: "Überschrift", key: "subheadline" },
@@ -52,18 +51,12 @@ const Dialog = ({
     setDialogSequence("overview");
     setInput(basicInput);
     setNumberOfListelements([]);
-    resetLink();
-  };
-
-  const resetLink = () => {
-    setLink({ value: "", link: "" });
-    setSaveLink(false);
-    setShowLinkDialog(false);
+    setReset(true);
   };
 
   useEffect(() => {
     if (dialogSequence === "default") {
-      resetLink();
+      setReset(true);
     }
   }, [dialogSequence]);
 
@@ -117,15 +110,10 @@ const Dialog = ({
                 }}
               />
               <AddLinks
-                resetLink={resetLink}
-                setLink={setLink}
+                reset={reset}
+                setReset={setReset}
                 setInput={setInput}
-                link={link}
                 input={input}
-                saveLink={saveLink}
-                setSaveLink={setSaveLink}
-                setShowLinkDialog={setShowLinkDialog}
-                showLinkDialog={showLinkDialog}
                 dialogSequence={dialogSequence}
               />
               <h2>KeyLearning ?</h2>
@@ -263,24 +251,34 @@ const Dialog = ({
               <>
                 <h3>{element + 1}. Punkt</h3>
                 <textarea
-                  onChange={(e) =>
-                    (input.list.listelemente[element] = e.target.value)
-                  }
+                  value={input.list.listelemente[element]}
+                  onChange={(e) => {
+                    setInput((prev: any) => {
+                      let newList = prev.list.listelemente;
+                      const newListElement = e.target.value;
+                      newList[element] = newListElement;
+                      return {
+                        ...prev,
+                        list: {
+                          type: prev.list.type,
+                          keyLearning: prev.list.keyLearning,
+                          listelemente: newList,
+                          sublists: prev.list.keyLearning,
+                        },
+                      };
+                    });
+                  }}
                   key={element}
                 />
                 <AddLinks
-                resetLink={resetLink}
-                setLink={setLink}
-                setInput={setInput}
-                link={link}
-                input={input}
-                saveLink={saveLink}
-                setSaveLink={setSaveLink}
-                setShowLinkDialog={setShowLinkDialog}
-                showLinkDialog={showLinkDialog}
-                dialogSequence={dialogSequence}
-                position={element}
-              />
+                  reset={reset}
+                  setReset={setReset}
+                  setInput={setInput}
+                  input={input}
+                  dialogSequence={dialogSequence}
+                  position={element}
+                  numberOfListelements={numberOfListelements}
+                />
               </>
             );
           })}

@@ -4,9 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Roboto } from "@next/font/google";
 import { getBlog } from "@/src/graphql/queries";
-import { API, graphqlOperation, Amplify, Auth } from "aws-amplify";
-import { Storage } from "aws-amplify";
-import awsconfig from "@/src/aws-exports";
+import { API, graphqlOperation, Amplify } from "aws-amplify";
 
 const roboto = Roboto({
   subsets: ["latin"],
