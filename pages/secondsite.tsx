@@ -336,7 +336,7 @@ const Secondsite = () => {
   const router = useRouter();
   const [topRaw, setTopRaw] = useState<any>({});
   const [numberOfListelements, setNumberOfListelements] = useState<any>([]);
-  const basicInput: any = {
+  const basicInput = {
     id: "",
     family: { type: "", relatedItems: [] },
     content: "",
