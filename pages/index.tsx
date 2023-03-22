@@ -1,27 +1,7 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
-import { useState } from "react";
+import Main from "@/components/main";
 
-const inter = Inter({ subsets: ["latin"] });
-
-interface property {
-  post: any;
-  setPost: Function;
-}
-
-export default function Home({ post, setPost }: property) {
-  const [type, setType] = useState("");
-  const [text, setText] = useState("");
-  const [link, setLink] = useState("");
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    const data = { id: post.length + 1, type, text, link };
-    setPost((prev: any) => [...prev, data]);
-    setType("");
-    setText("");
-    setLink("");
-  };
-
+export default function Home() {
   return (
     <>
       <Head>
@@ -30,48 +10,7 @@ export default function Home({ post, setPost }: property) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className="wrapper">
-        <div className="form-box">
-          <form onSubmit={handleSubmit}>
-            <textarea
-              id="input"
-              cols={30}
-              rows={10}
-              onChange={(e) => setText(e.target.value)}
-              value={text}
-            ></textarea>
-            <div className="link-section">
-              <label htmlFor="link">Link</label>
-              <input
-                type="text"
-                value={link}
-                onChange={(e) => setLink(e.target.value)}
-              />
-            </div>
-            <h2>Details</h2>
-            <div className="details-wrapper">
-              <div className="top-container">
-                <select value={type} onChange={(e) => setType(e.target.value)}>
-                  <option value="none">Wähle einen Type</option>
-                  <option value="headline">Überschrift</option>
-                  <option value="subHeadline">Mittlere Überschrift</option>
-                  <option value="subHeadline">Kleine Überschrift</option>
-                  <option value="text">Textsection</option>
-                  <option value="keyLearnings">Key learnings</option>
-                  <option value="image">Bild</option>
-                  <option value="image">Startbild</option>
-                  <option value="ul">UL</option>
-                  <option value="ol">OL</option>
-                </select>
-              </div>
-            </div>
-            <button className="button-18" type="submit">
-              Speichern
-            </button>
-          </form>
-        </div>
-      </main>
+      <Main />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Roboto } from "@next/font/google";
 import { getBlog } from "@/src/graphql/queries";
 import { API, graphqlOperation, Amplify } from "aws-amplify";
@@ -20,7 +20,6 @@ Amplify.configure({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [post, setPost] = useState([]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -46,15 +45,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <li>
             <Link href="/">Home</Link>
           </li>
-          <li>
-            <Link href="/testsite">Testsite</Link>
-          </li>
-          <li>
-            <Link href="/secondsite">Secondsite</Link>
-          </li>
         </ul>
       </nav>
-      <Component {...pageProps} post={post} setPost={setPost} />
+      <Component {...pageProps} />
     </>
   );
 }
