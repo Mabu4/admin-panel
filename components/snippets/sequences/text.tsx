@@ -1,4 +1,4 @@
-import AddLinks from "../addLinks";
+import AddLinks from "./addLinks";
 
 interface prop {
   setDialogSequence: Function;
