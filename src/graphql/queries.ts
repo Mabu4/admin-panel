@@ -8,7 +8,8 @@ export const getBlog = /* GraphQL */ `
       id
       theme
       description
-      image
+      imageALT
+      imageSRC
       posts {
         nextToken
       }
@@ -28,7 +29,8 @@ export const listBlogs = /* GraphQL */ `
         id
         theme
         description
-        image
+        imageALT
+        imageSRC
         createdAt
         updatedAt
       }
@@ -43,16 +45,19 @@ export const getPost = /* GraphQL */ `
       title
       description
       content
-      image
+      imageSRC
+      imageALT
       theme
       author
       pubDate
       readingTime
+      contentTable
       blog {
         id
         theme
         description
-        image
+        imageALT
+        imageSRC
         createdAt
         updatedAt
       }
@@ -74,11 +79,13 @@ export const listPosts = /* GraphQL */ `
         title
         description
         content
-        image
+        imageSRC
+        imageALT
         theme
         author
         pubDate
         readingTime
+        contentTable
         createdAt
         updatedAt
         blogPostsId

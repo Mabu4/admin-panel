@@ -8,7 +8,8 @@ export const onCreateBlog = /* GraphQL */ `
       id
       theme
       description
-      image
+      imageALT
+      imageSRC
       posts {
         nextToken
       }
@@ -23,7 +24,8 @@ export const onUpdateBlog = /* GraphQL */ `
       id
       theme
       description
-      image
+      imageALT
+      imageSRC
       posts {
         nextToken
       }
@@ -38,7 +40,8 @@ export const onDeleteBlog = /* GraphQL */ `
       id
       theme
       description
-      image
+      imageALT
+      imageSRC
       posts {
         nextToken
       }
@@ -54,16 +57,19 @@ export const onCreatePost = /* GraphQL */ `
       title
       description
       content
-      image
+      imageSRC
+      imageALT
       theme
       author
       pubDate
       readingTime
+      contentTable
       blog {
         id
         theme
         description
-        image
+        imageALT
+        imageSRC
         createdAt
         updatedAt
       }
@@ -80,16 +86,19 @@ export const onUpdatePost = /* GraphQL */ `
       title
       description
       content
-      image
+      imageSRC
+      imageALT
       theme
       author
       pubDate
       readingTime
+      contentTable
       blog {
         id
         theme
         description
-        image
+        imageALT
+        imageSRC
         createdAt
         updatedAt
       }
@@ -106,16 +115,19 @@ export const onDeletePost = /* GraphQL */ `
       title
       description
       content
-      image
+      imageSRC
+      imageALT
       theme
       author
       pubDate
       readingTime
+      contentTable
       blog {
         id
         theme
         description
-        image
+        imageALT
+        imageSRC
         createdAt
         updatedAt
       }
