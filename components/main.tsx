@@ -167,25 +167,33 @@ const Main = () => {
 
     router.push(href);
   };
-
-  const saveArticle = () => {
+  // { description, theme, metaDescription }: any
+  const saveArticle = (e: any) => {
+    e.preventDefault();
+    console.log("e: ", e.target.theme.value);
+    console.log("e: ", e.target.description.value);
+    console.log("e: ", e.target.metaDescription.value);
     const sum = contentHTML.reduce((prev: string, item: any) => {
       return prev.concat(ReactDomServer.renderToStaticMarkup(item.content));
     }, "");
     console.log("sum: ", sum);
-    //   {
-    //     title: topRaw.headline,
-    //     description: ""
-    //     content: sum,
-    //     imageSRC: topRaw.image.src,
-    //    imageALT: topRaw.image.alt,
-    //     theme: String!
-    //     author: topRaw.author
-    //     pubDate: topRaw.date
-    //     readingTime: topRaw.readingTime
-    //     contentTable: `${contentTable}`
-    //     blog: Blog @belongsTo
-    //   }
+    const data = {
+      title: topRaw.headline,
+      description: e.target.description.value || "",
+      metaDescription: e.target.metaDescription.value || "",
+      theme: e.target.theme.value || "",
+      author: topRaw.author,
+      dataCreated: topRaw.date,
+      dataUpdatet: topRaw.date,
+      readingTime: topRaw.readingTime,
+      imageSRC: topRaw.image.src,
+      imageALT: topRaw.image.alt,
+      contentTable: `${contentTable}`,
+      content: sum,
+      blog: e.target.blogID.value || "",
+      relatedPosts: "",
+    };
+    console.log("Mabu data: ", data);
   };
 
   return (
@@ -221,9 +229,21 @@ const Main = () => {
             className="basic-container"
             style={{ display: "flex", alignItems: "center" }}
           >
-            <button onClick={saveArticle} className="button-18">
-              Artikel speichern
-            </button>
+            <form action="" onSubmit={saveArticle}>
+              <h2>Thema</h2>
+              <input type="text" name="theme" id="theme" />
+              <h2>Beschreibung</h2>
+              <input type="text" name="description" id="description" />
+              <h2>Meta Beschreibung</h2>
+              <input type="text" name="metaDescription" id="metaDescription" />
+              <h2>Blog ID</h2>
+              <input type="text" name="blogID" id="blogID" />
+              <div>
+                <button type="submit" className="button-18">
+                  Artikel speichern
+                </button>
+              </div>
+            </form>
           </div>
           <div className="basic-container author">
             <div className="img-wrapper">
