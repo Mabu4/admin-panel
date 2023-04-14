@@ -26,6 +26,7 @@ type Post @model {
   imageALT: String!
   contentTable: String!
   content: String!
-  blog: Blog @belongsTo
+  metaDescription: String!
   relatedPosts: String!
+  blog: Blog @belongsTo
 }

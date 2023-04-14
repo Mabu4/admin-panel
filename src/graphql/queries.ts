@@ -25,6 +25,7 @@ export const getBlog = /* GraphQL */ `
           imageALT
           contentTable
           content
+          metaDescription
           relatedPosts
           createdAt
           updatedAt
@@ -76,6 +77,8 @@ export const getPost = /* GraphQL */ `
       imageALT
       contentTable
       content
+      metaDescription
+      relatedPosts
       blog {
         id
         title
@@ -89,7 +92,6 @@ export const getPost = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      relatedPosts
       createdAt
       updatedAt
       blogPostsId
@@ -116,6 +118,8 @@ export const listPosts = /* GraphQL */ `
         imageALT
         contentTable
         content
+        metaDescription
+        relatedPosts
         blog {
           id
           title
@@ -126,7 +130,6 @@ export const listPosts = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        relatedPosts
         createdAt
         updatedAt
         blogPostsId

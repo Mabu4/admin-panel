@@ -180,7 +180,6 @@ const Main = () => {
     const data = {
       title: topRaw.headline,
       description: e.target.description.value || "",
-      metaDescription: e.target.metaDescription.value || "",
       theme: e.target.theme.value || "",
       author: topRaw.author,
       dataCreated: topRaw.date,
@@ -192,6 +191,7 @@ const Main = () => {
       content: sum,
       blog: e.target.blogID.value || "",
       relatedPosts: "",
+      metaDescription: e.target.metaDescription.value || "",
     };
     console.log("Mabu data: ", data);
   };

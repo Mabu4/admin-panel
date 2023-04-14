@@ -28,6 +28,7 @@ export const createBlog = /* GraphQL */ `
           imageALT
           contentTable
           content
+          metaDescription
           relatedPosts
           createdAt
           updatedAt
@@ -66,6 +67,7 @@ export const updateBlog = /* GraphQL */ `
           imageALT
           contentTable
           content
+          metaDescription
           relatedPosts
           createdAt
           updatedAt
@@ -104,6 +106,7 @@ export const deleteBlog = /* GraphQL */ `
           imageALT
           contentTable
           content
+          metaDescription
           relatedPosts
           createdAt
           updatedAt
@@ -134,6 +137,8 @@ export const createPost = /* GraphQL */ `
       imageALT
       contentTable
       content
+      metaDescription
+      relatedPosts
       blog {
         id
         title
@@ -147,7 +152,6 @@ export const createPost = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      relatedPosts
       createdAt
       updatedAt
       blogPostsId
@@ -172,6 +176,8 @@ export const updatePost = /* GraphQL */ `
       imageALT
       contentTable
       content
+      metaDescription
+      relatedPosts
       blog {
         id
         title
@@ -185,7 +191,6 @@ export const updatePost = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      relatedPosts
       createdAt
       updatedAt
       blogPostsId
@@ -210,6 +215,8 @@ export const deletePost = /* GraphQL */ `
       imageALT
       contentTable
       content
+      metaDescription
+      relatedPosts
       blog {
         id
         title
@@ -223,7 +230,6 @@ export const deletePost = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      relatedPosts
       createdAt
       updatedAt
       blogPostsId
