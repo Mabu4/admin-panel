@@ -13,6 +13,15 @@ import dive4 from "../public/images/dive4.jpg";
 import dive5 from "../public/images/dive5.jpg";
 import dive6 from "../public/images/dive6.jpg";
 import dive7 from "../public/images/dive7.jpg";
+import { getBlog } from "@/src/graphql/queries";
+import { API, graphqlOperation, Amplify } from "aws-amplify";
+
+Amplify.configure({
+  aws_appsync_region: "eu-central-1", // (optional) - AWS AppSync region
+  aws_appsync_graphqlEndpoint: process.env.URI, // (optional) - AWS AppSync endpoint
+  aws_appsync_authenticationType: "API_KEY", // (optional) - Primary AWS AppSync authentication type
+  aws_appsync_apiKey: process.env.API_KEY, // (optional) - AWS AppSync API Key
+});
 
 interface input {
   id: any;
@@ -45,7 +54,6 @@ const Main = () => {
   const [dialogSequence, setDialogSequence] = useState<string>("default");
   const [createType, setCreateType] = useState<any>({ name: "", parentID: "" });
   const [contentTable, setContentTable] = useState<any>();
-  const router = useRouter();
   const [topRaw, setTopRaw] = useState<any>({});
   const [numberOfListelements, setNumberOfListelements] = useState<any>([]);
   const basicInput = {
@@ -64,6 +72,20 @@ const Main = () => {
       sublists: [],
     },
   };
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await API.graphql(
+        graphqlOperation(getBlog, {
+          id: "21833fa7-49af-47c3-b773-745d01cc6240",
+        })
+      );
+      console.log(res);
+    };
+    fetch();
+  }, []);
+
   const [input, setInput] = useState<any>(basicInput);
 
   const handleCreateHtml = (type: string) => {
@@ -167,20 +189,28 @@ const Main = () => {
 
     router.push(href);
   };
-  // { description, theme, metaDescription }: any
+
   const saveArticle = (e: any) => {
     e.preventDefault();
-    console.log("e: ", e.target.theme.value);
-    console.log("e: ", e.target.description.value);
-    console.log("e: ", e.target.metaDescription.value);
+    console.log("theme: ", e.target.theme.value);
+    console.log("description: ", e.target.description.value);
+    console.log("metaDes: ", e.target.metaDescription.value);
+    console.log("ID: ", e.target.blogID.value);
+
     const sum = contentHTML.reduce((prev: string, item: any) => {
       return prev.concat(ReactDomServer.renderToStaticMarkup(item.content));
     }, "");
+
     console.log("sum: ", sum);
+
+    const description = e.target.description.value || "";
+    const theme = e.target.theme.value || "";
+    const blog = e.target.blogID.value || "";
+    const metaDescription = e.target.metaDescription.value || "";
     const data = {
       title: topRaw.headline,
-      description: e.target.description.value || "",
-      theme: e.target.theme.value || "",
+      description: description,
+      theme: theme,
       author: topRaw.author,
       dataCreated: topRaw.date,
       dataUpdatet: topRaw.date,
@@ -189,9 +219,9 @@ const Main = () => {
       imageALT: topRaw.image.alt,
       contentTable: `${contentTable}`,
       content: sum,
-      blog: e.target.blogID.value || "",
+      blog: blog,
       relatedPosts: "",
-      metaDescription: e.target.metaDescription.value || "",
+      metaDescription: metaDescription,
     };
     console.log("Mabu data: ", data);
   };
