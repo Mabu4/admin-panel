@@ -13,15 +13,7 @@ import dive4 from "../public/images/dive4.jpg";
 import dive5 from "../public/images/dive5.jpg";
 import dive6 from "../public/images/dive6.jpg";
 import dive7 from "../public/images/dive7.jpg";
-import { getBlog } from "@/src/graphql/queries";
-import { API, graphqlOperation, Amplify } from "aws-amplify";
-
-Amplify.configure({
-  aws_appsync_region: "eu-central-1", // (optional) - AWS AppSync region
-  aws_appsync_graphqlEndpoint: process.env.URI, // (optional) - AWS AppSync endpoint
-  aws_appsync_authenticationType: "API_KEY", // (optional) - Primary AWS AppSync authentication type
-  aws_appsync_apiKey: process.env.API_KEY, // (optional) - AWS AppSync API Key
-});
+import _ from "lodash";
 
 interface input {
   id: any;
@@ -72,19 +64,8 @@ const Main = () => {
       sublists: [],
     },
   };
-  const router = useRouter();
 
-  useEffect(() => {
-    const fetch = async () => {
-      const res = await API.graphql(
-        graphqlOperation(getBlog, {
-          id: "21833fa7-49af-47c3-b773-745d01cc6240",
-        })
-      );
-      console.log(res);
-    };
-    fetch();
-  }, []);
+  const router = useRouter();
 
   const [input, setInput] = useState<any>(basicInput);
 
@@ -135,7 +116,7 @@ const Main = () => {
     const headlines = contentHTML.filter((item: any) => {
       if (
         (item.type === "subheadline" || item.type === "subheadlineAK") &&
-        item.family.type !== "child"
+        item?.family?.type !== "child"
       ) {
         return item;
       }
@@ -173,7 +154,7 @@ const Main = () => {
       }
     });
     setContentTable(
-      <div className="table-of-contents">
+      <div className="table-of-contents" id="tabelOfContent">
         <h3>Übersicht</h3>
         <ol className="list">{html}</ol>
       </div>
@@ -201,27 +182,27 @@ const Main = () => {
       return prev.concat(ReactDomServer.renderToStaticMarkup(item.content));
     }, "");
 
-    console.log("sum: ", sum);
+    const contentTablee: any = document.getElementById("tabelOfContent");
+    const htmlString = contentTablee.outerHTML;
 
-    const description = e.target.description.value || "";
-    const theme = e.target.theme.value || "";
-    const blog = e.target.blogID.value || "";
-    const metaDescription = e.target.metaDescription.value || "";
+    console.log("sum: ", sum);
+    console.log("content: ", contentTable);
+
     const data = {
-      title: topRaw.headline,
-      description: description,
-      theme: theme,
-      author: topRaw.author,
-      dataCreated: topRaw.date,
-      dataUpdatet: topRaw.date,
-      readingTime: topRaw.readingTime,
-      imageSRC: topRaw.image.src,
-      imageALT: topRaw.image.alt,
-      contentTable: `${contentTable}`,
+      title: _.get(topRaw, "headline") || "",
+      description: _.get(e, "target.description.value") || "",
+      theme: _.get(e, "target.theme.value") || "",
+      author: _.get(topRaw, "author") || "",
+      dataCreated: _.get(topRaw, "date") || "",
+      dataUpdatet: _.get(topRaw, "date") || "",
+      readingTime: _.get(topRaw, "readingTime") || "",
+      imageSRC: _.get(topRaw, "image.src") || "",
+      imageALT: _.get(topRaw, "image.alt") || "",
+      contentTable: htmlString,
       content: sum,
-      blog: blog,
-      relatedPosts: "",
-      metaDescription: metaDescription,
+      blog: _.get(e, "target.blogID.value") || "",
+      relatedPosts: "", //to do
+      metaDescription: _.get(e, "target.metaDescription.value") || "",
     };
     console.log("Mabu data: ", data);
   };

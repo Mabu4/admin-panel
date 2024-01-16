@@ -7,7 +7,7 @@ const OverviewSequence = ({ setDialogSequence, input }: props) => {
   const dialogThemes = [
     { name: "Überschrift (top)", key: "headline" },
     { name: "Überschrift", key: "subheadline" },
-    { name: "Überschrift (AK)", key: "subheadlineAK" },
+    { name: "Überschrift (AK -> (After Key Learnings))", key: "subheadlineAK" },
     { name: "Textfeld", key: "text" },
     { name: "Bild", key: "image" },
     { name: "Startbild", key: "startImage" },

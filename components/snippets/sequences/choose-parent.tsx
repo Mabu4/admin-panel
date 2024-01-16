@@ -10,9 +10,11 @@ const ChooseParentSequence = ({ contentHTML, setCreateType, goBack }: prop) => {
       <h2>Zugehörigkeit</h2>
       <div className="parent-list">
         {contentHTML.map((content: any) => {
-          if (content.family.type === "parent") {
+          console.log("content: ", contentHTML);
+          if (content?.family?.type === "parent") {
             return (
               <button
+                id={content.title}
                 onClick={() => {
                   setCreateType({
                     name: "headline-child",
