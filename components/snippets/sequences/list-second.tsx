@@ -37,7 +37,7 @@ const SecondListSequence = ({
       <h2>Mache deine Eingaben</h2>
       {numberOfListelements.map((element: any) => {
         return (
-          <>
+          <div id="element">
             <h3>{element + 1}. Punkt</h3>
             <textarea
               value={input.list.listelemente[element]}
@@ -68,7 +68,7 @@ const SecondListSequence = ({
               position={element}
               numberOfListelements={numberOfListelements}
             />
-          </>
+          </div>
         );
       })}
       <div className="button-box">
